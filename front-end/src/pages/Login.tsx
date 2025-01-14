@@ -3,17 +3,19 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const {toast} = useToast(); 
+  const navigate = useNavigate(); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(
-      `this is your username: ${username}, this is your password: ${password}`
-    );
-
+    
     try {
       const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
@@ -25,13 +27,34 @@ const Login = () => {
 
       if (!response.ok) {
         throw new Error("Login Failed.");
+      } else {
+        
+        const data = await response.json();
+        console.log(data.message)
+        if(data.success){
+          toast({
+            variant: "default",
+            title: `Welcome`,
+            description: "Login Successfully",
+            action: <ToastAction altText=""></ToastAction>
+          })
+          navigate("/user-page")
+          setUsername("")
+          setPassword("")
+        }else{
+          toast({
+            variant: "destructive",
+            title: "Invalid Input",
+            description: "Incorrect Username / Password",
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          })
+    
+        }
+       
+        
       }
-
-      const data = await response.json();
-      console.log("Login Successfully", data);
-      
     } catch (err) {
-      console.error("failed to connect to the backend ");
+      console.error("Failed Connecting to the Backend ");
     }
   };
 
@@ -45,6 +68,7 @@ const Login = () => {
               id="username"
               type="text"
               placeholder="Enter username"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="h-[2.5rem] w-full bg-white border border-gray-300 rounded-md p-2"
             />
@@ -55,6 +79,7 @@ const Login = () => {
             <Input
               id="password"
               type="password"
+              value = {password}
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
               className="h-[2.5rem] w-full bg-white border border-gray-300 rounded-md p-2"
