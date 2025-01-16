@@ -49,7 +49,7 @@ const Signup = () => {
 
 
   const { toast } = useToast();
-  // const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -93,10 +93,11 @@ const Signup = () => {
     // welcome prompt
     toast({
       variant: "default",
-      title: "Welcome!",
-      description: `Hello, ${values.fullName.split(" ")[0]}. Your account has been created successfully!`,
+      title: "Account Created Successfully",
+      description: `Hello, ${values.fullName.split(" ")[0]}. Your account has been successfully created. Please proceed to the login page to access your account.`,
       action: <ToastAction altText="Close">Close</ToastAction>,
     });
+    
   
     try {
       const response = await fetch("http://localhost:5000/api/signup", {
@@ -113,7 +114,9 @@ const Signup = () => {
         console.log("response is not okay", data.message)
        
       }else{
-        console.log("response is okay", data.message)
+        if(data.success){
+          navigate("/login")
+        }
       }
 
 
@@ -121,7 +124,7 @@ const Signup = () => {
       console.error("There is a problem in connecting to  back-end - Signup(front-end) ");
     }
 
-    // navigate("/user-page");
+    
   }
   return (
     <>
@@ -189,10 +192,6 @@ const Signup = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        {" "}
-                        this is your form description
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

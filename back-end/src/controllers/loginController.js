@@ -7,8 +7,10 @@ async function loginController(req, res) {
 
     if (repository.success) {
       res.status(200).json({
-        success: true,
-        message: repository.message
+        success: repository.success,
+        message: repository.message,
+        fullname: repository.fullname, 
+        role: repository.role
       });
         
     } else {
