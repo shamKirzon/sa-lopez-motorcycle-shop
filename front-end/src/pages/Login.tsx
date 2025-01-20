@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("http://localhost:5000/api/login", { // ito
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,28 +30,36 @@ const Login = () => {
       } else {
         const data = await response.json();
         if (data.success) {
-          toast({
+          toast({ 
             variant: "default",
             title: `Welcome! ${data.fullname.split(" ")[0]}.`,
             description: `${data.message}`,
             action: <ToastAction altText="wasap"></ToastAction>,
-          });
+        
+          })
           setUsername("");
           setPassword("");
-          
-          if(data.role === 'user'){
-            navigate('/user-dashboard')
-          } else{
-            navigate('/admin-dashboard')
+
+          if (data.role === "user") {
+            navigate("/user-dashboard");
+          } else {
+            navigate("/admin-dashboard");
           }
-
-
         } else {
           toast({
             variant: "destructive",
             title: "Invalid Input",
             description: "Incorrect Username / Password",
-            action: <ToastAction altText="Try again" onClick={() => {setUsername(""), setPassword("")} }>Try again</ToastAction>,
+            action: (
+              <ToastAction
+                altText="Try again"
+                onClick={() => {
+                  setUsername(""), setPassword("");
+                }}
+              >
+                Try again
+              </ToastAction>
+            ),
           });
         }
       }

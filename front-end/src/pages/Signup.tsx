@@ -64,15 +64,15 @@ const Signup = () => {
     },
   });
 
-  useEffect(() => {
-    form.setValue("fullName", "Shammy Kierson Suyat");
-    form.setValue("address", "Taguig City");
-    form.setValue("phoneNumber", "12345678901");
-    form.setValue("emailAddress", "shammysuyat@gmail.com");
-    form.setValue("username", "Kirzon");
-    form.setValue("password", "mypassword");
-    form.setValue("confirmPassword", "mypassword")
-  }, [form]);
+  // useEffect(() => {
+  //   form.setValue("fullName", "Shammy Kierson Suyat");
+  //   form.setValue("address", "Taguig City");
+  //   form.setValue("phoneNumber", "12345678901");
+  //   form.setValue("emailAddress", "shammysuyat@gmail.com");
+  //   form.setValue("username", "Kirzon");
+  //   form.setValue("password", "mypassword");
+  //   form.setValue("confirmPassword", "mypassword")
+  // }, [form]);
 
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {

@@ -7,8 +7,8 @@ async function loginRepository(username, password) {
     const values = [username, password];
     const result = await pool.query(query, values);
 
-    if (result.rows.length > 0) {
-      const role = result.rows[0].role;
+    if (result.rows.length > 0) { // if merong account na existing 
+      const role = result.rows[0].role; 
       const account = result.rows[0];
       const userId = account.user_id;
 
@@ -16,6 +16,7 @@ async function loginRepository(username, password) {
 
       try {
         const getFullName = await pool.query(getFullnameQuery, [userId]);
+
 
         if (getFullName.rows.length > 0) {
           const fullname = getFullName.rows[0].fullname;
