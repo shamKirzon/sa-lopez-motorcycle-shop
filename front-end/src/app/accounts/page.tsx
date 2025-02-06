@@ -5,12 +5,11 @@ async function getData(): Promise<Account[]> {
   // Fetch data from your API here.
   return [
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      username: "shammysuyat@gmail.com", 
+      password: "password", 
+      role: "user"
     },
-    // ...
+    
   ]
 }
 
