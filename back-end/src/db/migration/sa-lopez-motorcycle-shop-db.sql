@@ -9,6 +9,3 @@ CREATE TABLE Account (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
-INSERT INTO Accounts (username, password)
-VALUES ('shammySuyat', 'myPass');

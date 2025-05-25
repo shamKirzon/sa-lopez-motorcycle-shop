@@ -1,6 +1,7 @@
 import pool from "../db/connection.js";
 
 async function loginRepository(username, password) {
+  
   const query = "SELECT * FROM accounts WHERE username = $1 AND password = $2 ";
 
   try {
@@ -14,6 +15,7 @@ async function loginRepository(username, password) {
 
       const getFullnameQuery = `SELECT fullname FROM users WHERE user_id = $1`;
 
+      console.log("PUMASOK NAMAN SA LOGIN REPOSITORY KO")
       try {
         const getFullName = await pool.query(getFullnameQuery, [userId]);
 

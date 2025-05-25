@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", { // ito
+      const response = await fetch("http://localhost:4000/api/login", { // ito
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const Login = () => {
           if (data.role === "user") {
             navigate("/user-dashboard");
           } else {
-            navigate("/admin-dashboard");
+            navigate("/admin-dashboard/content");
           }
         } else {
           toast({
